@@ -51,3 +51,38 @@ h1 em { color:var(--orange); }
 footer { padding:35px 4vw;background:var(--ink);color:var(--cream);font-size:9px;letter-spacing:.12em;display:flex;justify-content:space-between; }
 @media(max-width:850px){.page-hero,.content-panel,.profile{grid-template-columns:1fr}.page-deck,.profile-art{border-left:0;border-right:0;border-top:2px solid}.zombie-grid{grid-template-columns:1fr 1fr}.zombie-card{border-bottom:2px solid}.subnav-links{gap:12px}.subnav-links a{font-size:8px}}
 @media(max-width:520px){.zombie-grid{grid-template-columns:1fr}.subnav-links a:first-child{display:none}.profile-copy{padding:60px 7vw}}
+
+/* Glossy supernatural portrait treatment inspired by the supplied ensemble image. */
+.mini-zombie {
+  width:150px;
+  height:210px;
+  top:43%;
+  border-radius:46% 46% 42% 42%;
+  background:linear-gradient(105deg,#a8c5a1 0 47%,#7aa486 48% 100%);
+  box-shadow:inset 12px 0 28px rgba(255,255,255,.18), 8px 14px 0 rgba(0,0,0,.16);
+  z-index:2;
+}
+.mini-zombie:before {
+  width:19px;height:12px;left:30px;top:76px;
+  background:#d8ff70;
+  border:2px solid var(--ink);
+  border-radius:55% 45%;
+  box-shadow:67px 0 0 #d8ff70,67px 0 0 2px var(--ink),0 0 15px #d8ff70,67px 0 15px #d8ff70;
+}
+.mini-zombie:after {
+  width:55px;height:14px;left:45px;top:145px;
+  border-color:var(--ink);border-radius:0 0 50% 50%;
+}
+.z-hair { position:absolute;z-index:3;left:-5px;top:-25px;width:160px;height:78px;background:#172a25;border:3px solid var(--ink);border-radius:60% 45% 25% 20%;transform:rotate(-3deg); }
+.z-jacket { position:absolute;z-index:-1;left:-45px;top:170px;width:240px;height:150px;background:linear-gradient(115deg,#262838 0 48%,#bd3159 49%);border:3px solid var(--ink);border-radius:85px 85px 0 0; }
+.z-jacket:after { content:"";position:absolute;left:105px;top:0;height:145px;border-left:4px solid var(--yellow); }
+.z-glow { position:absolute;z-index:-2;inset:-45px;border-radius:50%;background:radial-gradient(circle,rgba(244,96,184,.6),transparent 65%);filter:blur(8px); }
+.dino .z-hair { background:#b8d95a;clip-path:polygon(0 65%,12% 20%,27% 60%,43% 5%,58% 58%,75% 10%,100% 70%);border:0; }
+.cowboy .z-hair { background:#241b18;border-radius:65% 45% 25% 20%; }
+.space .z-hair { background:linear-gradient(100deg,#121a2e,#3858a4);height:90px; }
+.disco .z-hair { background:#2b172d;border-radius:50%;height:90px;box-shadow:18px -8px 0 #2b172d,-15px 0 0 #2b172d; }
+.profile-art .mini-zombie { width:225px;height:315px; }
+.profile-art .mini-zombie:before { top:105px;left:55px;box-shadow:92px 0 0 #d8ff70,92px 0 0 2px var(--ink),0 0 18px #d8ff70,92px 0 18px #d8ff70; }
+.profile-art .mini-zombie:after { top:205px;left:78px;width:70px; }
+.profile-art .z-hair { width:235px;height:105px; }
+.profile-art .z-jacket { left:-80px;top:270px;width:385px;height:230px; }
