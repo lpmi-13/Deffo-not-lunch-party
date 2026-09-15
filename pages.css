@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap');
+
+:root { --ink:#171513; --cream:#f2e8d2; --orange:#ec5b24; --red:#be3025; --yellow:#f3b91f; --green:#1f4d3a; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--cream); color:var(--ink); font-family:"DM Mono",monospace; }
+.subnav { height:92px; padding:0 4vw; display:flex; align-items:center; justify-content:space-between; border-bottom:2px solid; }
+.subnav a { color:inherit; text-decoration:none; font-size:11px; font-weight:500; letter-spacing:.1em; }
+.subnav .home { font:900 20px "Fraunces",serif; }
+.subnav-links { display:flex; gap:28px; }
+.subnav a[aria-current="page"] { border-bottom:2px solid var(--orange); }
+.page-hero { min-height:430px; display:grid; grid-template-columns:1fr 1fr; border-bottom:2px solid; }
+.page-title { padding:70px 4vw; }
+.kicker { font-size:10px; letter-spacing:.18em; }
+h1,h2,h3 { font-family:"Fraunces",serif; }
+h1 { margin:35px 0 0; font-size:clamp(70px,10vw,150px); line-height:.76; letter-spacing:-.07em; }
+h1 em { color:var(--orange); }
+.page-deck { padding:70px 5vw; border-left:2px solid; display:flex; flex-direction:column; justify-content:flex-end; background:var(--yellow); }
+.page-deck p { margin:0; font:700 clamp(22px,2.5vw,38px)/1.2 "Fraunces",serif; max-width:650px; }
+.zombie-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+.zombie-card { min-height:480px; padding:30px 2vw; color:var(--cream); text-decoration:none; border-right:2px solid var(--ink); position:relative; overflow:hidden; }
+.zombie-card:nth-child(1){background:var(--green)}.zombie-card:nth-child(2){background:var(--red)}.zombie-card:nth-child(3){background:#293d69}.zombie-card:nth-child(4){background:#7a3e6b}
+.zombie-card .num { font-size:9px; letter-spacing:.15em; }
+.zombie-card h2 { position:absolute;left:2vw;bottom:20px;z-index:2;margin:0;font-size:clamp(35px,4vw,60px);line-height:.82;letter-spacing:-.05em; }
+.zombie-card:hover .mini-zombie { transform:translate(-50%,-52%) rotate(5deg) scale(1.06); }
+.mini-zombie { position:absolute; width:170px; height:205px; border:3px solid var(--ink); background:#86a96d; border-radius:45% 48% 38% 42%; left:50%; top:45%; transform:translate(-50%,-50%); transition:transform .4s cubic-bezier(.68,-.6,.32,1.6); }
+.mini-zombie:before { content:""; position:absolute; width:18px;height:18px;border-radius:50%;background:var(--cream);left:38px;top:65px;box-shadow:72px 4px 0 var(--cream); }
+.mini-zombie:after { content:"";position:absolute;width:65px;height:22px;border:3px solid;border-top:0;left:50px;top:125px;transform:rotate(-5deg); }
+.dino .mini-zombie { border-radius:65% 30% 45% 40%; }
+.dino .mini-zombie i { position:absolute;top:-28px;left:35px;border-left:18px solid transparent;border-right:18px solid transparent;border-bottom:35px solid var(--yellow); }
+.cowboy .mini-zombie i { position:absolute;width:230px;height:35px;background:#9d642f;left:-32px;top:-12px;border:3px solid var(--ink);border-radius:50%; }
+.cowboy .mini-zombie i:after { content:"";position:absolute;width:120px;height:60px;background:#9d642f;left:52px;bottom:8px;border:3px solid var(--ink);border-radius:50% 50% 10% 10%; }
+.space .mini-zombie { box-shadow:0 0 0 20px rgba(220,240,255,.35),0 0 0 23px var(--ink); }
+.space .mini-zombie i { position:absolute;width:60px;height:15px;background:#9feaff;right:-45px;top:30px;border:3px solid;transform:rotate(35deg); }
+.disco .mini-zombie i { position:absolute;width:130px;height:65px;background:var(--ink);left:17px;top:-30px;border-radius:50% 50% 20% 20%; }
+.content-panel { padding:90px 8vw; display:grid; grid-template-columns:1fr 1fr; gap:8vw; }
+.content-panel h2 { font-size:clamp(38px,5vw,70px);line-height:.95;margin:0;letter-spacing:-.04em; }
+.content-panel p,.content-panel li { font:700 19px/1.5 "Fraunces",serif; }
+.contact-list { list-style:none;padding:0;margin:30px 0; }
+.contact-list li { border-top:2px solid;padding:18px 0;display:flex;justify-content:space-between; }
+.contact-list a { color:inherit; }
+
+.profile { min-height:calc(100vh - 92px);display:grid;grid-template-columns:52% 48%; }
+.profile-art { position:relative;overflow:hidden;background:var(--accent);border-right:2px solid;display:grid;place-items:center;min-height:620px; }
+.profile-art .mini-zombie { width:260px;height:315px;position:relative;left:auto;top:auto;transform:none; }
+.profile-copy { padding:7vw 6vw;display:flex;flex-direction:column;justify-content:center; }
+.profile-copy h1 { font-size:clamp(65px,8vw,125px); }
+.profile-copy .bio { font:700 22px/1.35 "Fraunces",serif; }
+.stats { list-style:none;padding:0;margin:35px 0 0;border-top:2px solid; }
+.stats li { padding:12px 0;border-bottom:1px solid;display:flex;justify-content:space-between;font-size:10px; }
+.back-link { margin-top:35px;color:inherit;font-size:10px;font-weight:bold; }
+footer { padding:35px 4vw;background:var(--ink);color:var(--cream);font-size:9px;letter-spacing:.12em;display:flex;justify-content:space-between; }
+@media(max-width:850px){.page-hero,.content-panel,.profile{grid-template-columns:1fr}.page-deck,.profile-art{border-left:0;border-right:0;border-top:2px solid}.zombie-grid{grid-template-columns:1fr 1fr}.zombie-card{border-bottom:2px solid}.subnav-links{gap:12px}.subnav-links a{font-size:8px}}
+@media(max-width:520px){.zombie-grid{grid-template-columns:1fr}.subnav-links a:first-child{display:none}.profile-copy{padding:60px 7vw}}
+
+/* Glossy supernatural portrait treatment inspired by the supplied ensemble image. */
+.mini-zombie {
+  width:150px;
+  height:210px;
+  top:43%;
+  border-radius:46% 46% 42% 42%;
+  background:linear-gradient(105deg,#a8c5a1 0 47%,#7aa486 48% 100%);
+  box-shadow:inset 12px 0 28px rgba(255,255,255,.18), 8px 14px 0 rgba(0,0,0,.16);
+  z-index:2;
+}
+.mini-zombie:before {
+  width:19px;height:12px;left:30px;top:76px;
+  background:#d8ff70;
+  border:2px solid var(--ink);
+  border-radius:55% 45%;
+  box-shadow:67px 0 0 #d8ff70,67px 0 0 2px var(--ink),0 0 15px #d8ff70,67px 0 15px #d8ff70;
+}
+.mini-zombie:after {
+  width:55px;height:14px;left:45px;top:145px;
+  border-color:var(--ink);border-radius:0 0 50% 50%;
+}
+.z-hair { position:absolute;z-index:3;left:-5px;top:-25px;width:160px;height:78px;background:#172a25;border:3px solid var(--ink);border-radius:60% 45% 25% 20%;transform:rotate(-3deg); }
+.z-jacket { position:absolute;z-index:-1;left:-45px;top:170px;width:240px;height:150px;background:linear-gradient(115deg,#262838 0 48%,#bd3159 49%);border:3px solid var(--ink);border-radius:85px 85px 0 0; }
+.z-jacket:after { content:"";position:absolute;left:105px;top:0;height:145px;border-left:4px solid var(--yellow); }
+.z-glow { position:absolute;z-index:-2;inset:-45px;border-radius:50%;background:radial-gradient(circle,rgba(244,96,184,.6),transparent 65%);filter:blur(8px); }
+.dino .z-hair { background:#b8d95a;clip-path:polygon(0 65%,12% 20%,27% 60%,43% 5%,58% 58%,75% 10%,100% 70%);border:0; }
+.cowboy .z-hair { background:#241b18;border-radius:65% 45% 25% 20%; }
+.space .z-hair { background:linear-gradient(100deg,#121a2e,#3858a4);height:90px; }
+.disco .z-hair { background:#2b172d;border-radius:50%;height:90px;box-shadow:18px -8px 0 #2b172d,-15px 0 0 #2b172d; }
+.profile-art .mini-zombie { width:225px;height:315px; }
+.profile-art .mini-zombie:before { top:105px;left:55px;box-shadow:92px 0 0 #d8ff70,92px 0 0 2px var(--ink),0 0 18px #d8ff70,92px 0 18px #d8ff70; }
+.profile-art .mini-zombie:after { top:205px;left:78px;width:70px; }
+.profile-art .z-hair { width:235px;height:105px; }
+.profile-art .z-jacket { left:-80px;top:270px;width:385px;height:230px; }

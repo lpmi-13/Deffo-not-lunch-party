@@ -1,6 +1,8 @@
 const lars = document.querySelector('#lars');
 const clickLars = document.querySelector('#clickLars');
 const speech = document.querySelector('#speech');
+const menuToggle = document.querySelector('.menu-toggle');
+const siteMenu = document.querySelector('.site-menu');
 
 const excuses = [
   "PLEASE DON'T ASK\nABOUT MY WEEKEND.",
@@ -22,3 +24,15 @@ function avoidConversation() {
 
 lars.addEventListener('click', avoidConversation);
 clickLars.addEventListener('click', avoidConversation);
+
+menuToggle.addEventListener('click', () => {
+  const isOpen = document.body.classList.toggle('menu-open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    document.body.classList.remove('menu-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+});
