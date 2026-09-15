@@ -63,8 +63,29 @@ function avoidConversation() {
   }
 }
 
-lars.addEventListener('click', avoidConversation);
-clickLars.addEventListener('click', avoidConversation);
+function handlePointerActivation(event) {
+  if (event.pointerType === 'mouse' && event.button !== 0) {
+    return;
+  }
+
+  // Start the interaction before an animation can move Lars out from under the
+  // pointer. Chromium can otherwise cancel the ensuing click when that happens.
+  avoidConversation();
+}
+
+function handleClickActivation(event) {
+  // Pointer input emits a compatibility click after pointerup. Ignore only that
+  // duplicate, while retaining native click support for keyboard activation and
+  // browsers that do not expose Pointer Events.
+  if (!window.PointerEvent || event.detail === 0) {
+    avoidConversation();
+  }
+}
+
+[lars, clickLars].forEach((control) => {
+  control.addEventListener('pointerdown', handlePointerActivation);
+  control.addEventListener('click', handleClickActivation);
+});
 
 menuToggle.addEventListener('click', () => {
   const isOpen = document.body.classList.toggle('menu-open');
