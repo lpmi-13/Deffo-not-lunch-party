@@ -50,7 +50,7 @@ h1 em { color:var(--orange); }
 .back-link { margin-top:35px;color:inherit;font-size:10px;font-weight:bold; }
 footer { padding:35px 4vw;background:var(--ink);color:var(--cream);font-size:9px;letter-spacing:.12em;display:flex;justify-content:space-between; }
 @media(max-width:850px){.page-hero,.content-panel,.profile{grid-template-columns:1fr}.page-deck,.profile-art{border-left:0;border-right:0;border-top:2px solid}.zombie-grid{grid-template-columns:1fr 1fr}.zombie-card{border-bottom:2px solid}.subnav-links{gap:12px}.subnav-links a{font-size:8px}}
-@media(max-width:520px){.zombie-grid{grid-template-columns:1fr}.subnav-links a:first-child{display:none}.profile-copy{padding:60px 7vw}}
+@media(max-width:520px){.subnav{height:76px;padding:0 5vw}.subnav-links{gap:10px}.subnav-links a{font-size:8px}.zombie-grid{grid-template-columns:1fr}.page-title{padding:52px 5vw}.page-hero{min-height:0}.page-title h1{font-size:clamp(58px,21vw,88px);margin-top:28px}.page-deck{padding:48px 5vw}.content-panel{padding:64px 5vw;gap:38px}.contact-list li{align-items:flex-start;gap:18px;flex-direction:column}.contact-list a{overflow-wrap:anywhere}.profile-art{min-height:470px}.profile-copy{padding:54px 7vw}.profile-copy h1{font-size:clamp(54px,19vw,78px)}.profile-copy .bio{font-size:19px}.stats li{gap:18px}.stats li b{text-align:right}footer{gap:16px;flex-wrap:wrap;line-height:1.5}}
 
 /* Glossy supernatural portrait treatment inspired by the supplied ensemble image. */
 .mini-zombie {
