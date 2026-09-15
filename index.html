@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Definitely not lunch: cards, chutney, and Lars avoiding small talk.">
+  <title>Definitely Not Lunch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Definitely Not Lunch home">
+      <span class="brand-mark">DN</span>
+      <span>DEFINITELY<br>NOT LUNCH</span>
+    </a>
+    <div class="status"><span></span> CARD TERMINAL ONLINE</div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <span></span><span></span><span></span><b>MENU</b>
+    </button>
+    <nav class="site-menu" id="site-menu" aria-label="Main navigation">
+      <a href="index.html"><span>01</span>NOT LUNCH</a>
+      <a href="about.html"><span>02</span>ABOUT</a>
+      <a href="wtf.html"><span>03</span>WTF?</a>
+      <a href="contact.html"><span>04</span>CONTACT</a>
+      <small>CARDS ACCEPTED. QUESTIONS, RELUCTANTLY.</small>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">01 / A COMPLETELY NORMAL TRANSACTION</p>
+        <h1>THIS IS<br><em>NOT</em> LUNCH.</h1>
+        <p class="intro">It may be noon. There may be fragrant curry. But this is a <strong>card-enabled financial event</strong> and Lars would prefer we all act accordingly.</p>
+        <div class="payment-strip" aria-label="Payment methods accepted">
+          <span>WE ACCEPT</span>
+          <b>VISA</b><b>MC</b><b>AMEX</b><b>RUPAY</b>
+          <span class="only">CARDS ONLY ↗</span>
+        </div>
+      </div>
+
+      <div class="lars-stage">
+        <div class="sun" aria-hidden="true"></div>
+        <p class="look-note note-left">LOOKING<br>OVER HERE</p>
+        <p class="look-note note-right">AND NOW<br>OVER THERE</p>
+        <div class="dashed-orbit" aria-hidden="true"></div>
+
+        <button class="lars" id="lars" type="button" aria-label="Click Lars to help him avoid conversation">
+          <span class="hair"></span>
+          <span class="ear left-ear"></span><span class="ear right-ear"></span>
+          <span class="face">
+            <span class="brow"></span>
+            <span class="eyes"><i></i><i></i></span>
+            <span class="glasses"><i></i><i></i></span>
+            <span class="nose"></span><span class="mouth"></span>
+          </span>
+          <span class="neck"></span>
+          <span class="body"><span class="collar"></span><span class="tie"></span><span class="pocket">101</span></span>
+          <span class="badge">LARS<br><small>DATA GUY</small></span>
+        </button>
+        <div class="speech" id="speech" role="status">PLEASE DON'T ASK<br>ABOUT MY WEEKEND.</div>
+        <button class="click-lars" id="clickLars" type="button"><span>↗</span> CLICK LARS<br><small>HE'LL HANDLE IT POORLY</small></button>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Important reminder">
+      <div>NO CASH&nbsp; ✦ &nbsp;NO SMALL TALK&nbsp; ✦ &nbsp;NO, THIS ISN'T LUNCH&nbsp; ✦ &nbsp;TAP YOUR CARD&nbsp; ✦ &nbsp;NO CASH&nbsp; ✦ &nbsp;NO SMALL TALK&nbsp; ✦ &nbsp;NO, THIS ISN'T LUNCH&nbsp; ✦ &nbsp;TAP YOUR CARD&nbsp; ✦ &nbsp;</div>
+    </section>
+
+    <section class="terms" id="terms">
+      <div class="terms-heading">
+        <p class="eyebrow">02 / THE NON-LUNCH PROTOCOL</p>
+        <h2>THREE SIMPLE<br>TERMS.</h2>
+      </div>
+      <ol class="rules">
+        <li><span>01</span><div><h3>BRING A CARD.</h3><p>Credit. Debit. Something that beeps. Your charming personality is not legal tender.</p></div></li>
+        <li><span>02</span><div><h3>CHOOSE YOUR CURRY.</h3><p>Deep, bright, warming, delicious—and strictly unrelated to the midday meal.</p></div></li>
+        <li><span>03</span><div><h3>DO NOT ENGAGE LARS.</h3><p>He has seen you. He is now studying a fascinating point somewhere behind your left shoulder.</p></div></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <span>EST. WHENEVER LARS ARRIVED</span>
+    <strong>NOT LUNCH™</strong>
+    <span>PLEASE TAP RESPONSIBLY</span>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
