@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chat with the playas. They are online, opinionated, and not especially helpful.">
+  <meta name="theme-color" content="#f3b91f">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>Chat With the Playas — Definitely Not Lunch</title>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="chat-nav">
+    <a class="home" href="index.html" aria-label="Back to Definitely Not Lunch">DN / NL</a>
+    <p><span aria-hidden="true"></span> 4 PLAYAS ONLINE</p>
+    <a href="index.html">CLOSE CHAT ×</a>
+  </header>
+
+  <main class="chat-page">
+    <section class="chat-intro">
+      <p class="kicker">06 / VERY REAL CUSTOMER SUPPORT</p>
+      <h1>CHAT WITH<br>THE <em>PLAYAS.</em></h1>
+      <p class="deck">Say absolutely anything. The playas will confer, overthink it, and get back to you with something that is technically a response.</p>
+      <div class="playa-roll" aria-label="Playas currently in the chat">
+        <span><b>D</b>DORIS</span><span><b>C</b>CLINT</span><span><b>V</b>VAL</span><span><b>B</b>BOOGIE</span>
+      </div>
+    </section>
+
+    <section class="terminal" aria-label="Chat with the playas">
+      <div class="terminal-bar"><span>PLAYA GROUP CHAT</span><span>END-TO-END NONSENSE</span></div>
+      <div class="messages" id="messages" aria-live="polite" aria-relevant="additions">
+        <article class="message playa-message">
+          <span class="avatar">B</span>
+          <div><small>BOOGIE · JUST NOW</small><p>Welcome to the group chat. Hit us with your most urgent situation.</p></div>
+        </article>
+      </div>
+      <div class="activity" id="activity" aria-live="polite"></div>
+      <form class="chat-form" id="chatForm">
+        <label for="chatInput">YOUR MESSAGE</label>
+        <div class="input-row">
+          <input id="chatInput" name="message" type="text" autocomplete="off" maxlength="280" placeholder="TYPE WHATEVER YOU WANT…" required>
+          <button type="submit">SEND <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <script src="chat.js"></script>
+</body>
+</html>
