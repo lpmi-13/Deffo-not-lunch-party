@@ -23,6 +23,9 @@ let previousFrameTime = 0;
 let effectCooldown = 0;
 let finaleStarted = false;
 let movementGrace = 0;
+const motionCanvas = document.createElement('canvas');
+const motionContext = motionCanvas.getContext('2d', {willReadFrequently:true});
+let previousPixels;
 
 menuToggle.addEventListener('click', () => {
   const open = document.body.classList.toggle('menu-open');
@@ -47,15 +50,23 @@ function setScore(value) {
   else ratingOutput.innerHTML = 'MORE LIMBS,<br>PLEASE';
 }
 
-function launchEffect(type) {
+function launchEffect(type, falling = Math.random() < .42) {
   const item = document.createElement('i');
-  item.className = `effect ${type}`;
-  item.textContent = type === 'diamond' ? '◆' : '♥';
-  item.style.left = `${3 + Math.random() * 88}%`;
-  item.style.setProperty('--drift', `${-80 + Math.random() * 160}px`);
-  item.style.animationDelay = `${Math.random() * .25}s`;
+  item.className = `effect ${type}${falling ? ' falling' : ''}`;
+  item.textContent = type === 'diamond' ? '◆' : type === 'star' ? '★' : '♥';
+  if (falling) {
+    item.style.left = `${Math.random() < .5 ? 1 + Math.random() * 17 : 78 + Math.random() * 17}%`;
+    item.style.setProperty('--x', `${-35 + Math.random() * 70}px`);
+  } else {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 190 + Math.random() * 290;
+    item.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+    item.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+  }
+  item.style.setProperty('--spin', `${-300 + Math.random() * 600}deg`);
+  item.style.animationDelay = `${Math.random() * .1}s`;
   effects.append(item);
-  window.setTimeout(() => item.remove(), 3300);
+  window.setTimeout(() => item.remove(), 2800);
 }
 
 function launchBurst(count, diamonds = false) {
@@ -92,19 +103,42 @@ function calculateMotion(points) {
   return Math.min(100, travel / bodySize * 900);
 }
 
+function calculateCameraMotion() {
+  const width = 64;
+  const height = 40;
+  if (motionCanvas.width !== width) {
+    motionCanvas.width = width;
+    motionCanvas.height = height;
+  }
+  motionContext.drawImage(video, 0, 0, width, height);
+  const pixels = motionContext.getImageData(0, 0, width, height).data;
+  if (!previousPixels) {
+    previousPixels = new Uint8ClampedArray(pixels);
+    return 0;
+  }
+  let changed = 0;
+  for (let index = 0; index < pixels.length; index += 16) {
+    const difference = Math.abs(pixels[index] - previousPixels[index]) + Math.abs(pixels[index + 1] - previousPixels[index + 1]) + Math.abs(pixels[index + 2] - previousPixels[index + 2]);
+    if (difference > 32) changed += Math.min(difference / 90, 3);
+  }
+  previousPixels.set(pixels);
+  return Math.min(100, changed / (pixels.length / 16) * 115);
+}
+
 async function analyseFrame(timestamp) {
   if (!detector || video.readyState < 2) { requestAnimationFrame(analyseFrame); return; }
   const poses = await detector.estimatePoses(video, {maxPoses:1, flipHorizontal:false});
   const elapsed = previousFrameTime ? Math.min((timestamp-previousFrameTime)/1000,.2) : 0;
   previousFrameTime = timestamp;
+  const cameraMovement = calculateCameraMotion();
   if (poses[0]) {
     drawPose(poses[0].keypoints);
-    const movement = calculateMotion(poses[0].keypoints);
+    const movement = Math.max(calculateMotion(poses[0].keypoints), cameraMovement);
     smoothedScore = smoothedScore * .86 + movement * .14;
     const displayScore = Math.min(100, smoothedScore * 1.7);
     setScore(displayScore);
     motionOutput.textContent = movement > 35 ? 'CHAOTIC' : movement > 16 ? 'STRONG' : movement > 5 ? 'DETECTED' : 'SUBTLE';
-    if (movement > 2.2) movementGrace = .8;
+    if (movement > 1.1) movementGrace = .9;
     else movementGrace = Math.max(0, movementGrace - elapsed);
     viewport.classList.toggle('is-dancing', movementGrace > 0);
     if (movementGrace > 0) activeSeconds += elapsed;
@@ -112,16 +146,32 @@ async function analyseFrame(timestamp) {
     effectCooldown -= elapsed;
     viewport.classList.toggle('is-hot', displayScore >= 58);
     if (movementGrace > 0 && effectCooldown <= 0) {
-      const diamond = displayScore >= 55 && Math.random() > .42;
-      launchEffect(diamond ? 'diamond' : 'heart');
-      if (displayScore >= 70) launchEffect(Math.random() > .5 ? 'diamond' : 'heart');
-      effectCooldown = displayScore >= 70 ? .12 : displayScore >= 40 ? .2 : .35;
+      const iconPool = displayScore >= 55 ? ['heart','diamond','star'] : ['heart','heart','star'];
+      const amount = displayScore >= 70 ? 4 : displayScore >= 40 ? 3 : 2;
+      for (let index = 0; index < amount; index += 1) launchEffect(iconPool[Math.floor(Math.random() * iconPool.length)]);
+      effectCooldown = displayScore >= 70 ? .08 : displayScore >= 40 ? .12 : .18;
     }
-    if (activeSeconds >= 10 && !finaleStarted) {
-      finaleStarted = true; viewport.classList.add('is-finale'); setScore(100);
-      statusOutput.textContent = 'DANCE TERMINAL ON FIRE';
-      launchBurst(24, true);
+  } else {
+    movementGrace = cameraMovement > 1.1 ? .9 : Math.max(0, movementGrace - elapsed);
+    viewport.classList.toggle('is-dancing', movementGrace > 0);
+    if (movementGrace > 0) {
+      activeSeconds += elapsed;
+      effectCooldown -= elapsed;
+      motionOutput.textContent = cameraMovement > 20 ? 'CHAOTIC' : cameraMovement > 7 ? 'STRONG' : 'DETECTED';
+      if (effectCooldown <= 0) {
+        launchEffect(['heart','diamond','star'][Math.floor(Math.random() * 3)]);
+        launchEffect(Math.random() > .5 ? 'heart' : 'star');
+        effectCooldown = .16;
+      }
     }
+    timeOutput.textContent = `${activeSeconds.toFixed(1).padStart(4,'0')}s`;
+  }
+  if (activeSeconds >= 10 && !finaleStarted) {
+    finaleStarted = true;
+    viewport.classList.add('is-finale');
+    setScore(100);
+    statusOutput.textContent = 'DANCE TERMINAL ON FIRE';
+    launchBurst(24, true);
   }
   requestAnimationFrame(analyseFrame);
 }
