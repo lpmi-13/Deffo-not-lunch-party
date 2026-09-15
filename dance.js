@@ -22,6 +22,7 @@ let activeSeconds = 0;
 let previousFrameTime = 0;
 let effectCooldown = 0;
 let finaleStarted = false;
+let movementGrace = 0;
 
 menuToggle.addEventListener('click', () => {
   const open = document.body.classList.toggle('menu-open');
@@ -50,10 +51,17 @@ function launchEffect(type) {
   const item = document.createElement('i');
   item.className = `effect ${type}`;
   item.textContent = type === 'diamond' ? '◆' : '♥';
-  item.style.left = `${Math.random() < .5 ? Math.random() * 18 : 78 + Math.random() * 18}%`;
+  item.style.left = `${3 + Math.random() * 88}%`;
+  item.style.setProperty('--drift', `${-80 + Math.random() * 160}px`);
   item.style.animationDelay = `${Math.random() * .25}s`;
   effects.append(item);
-  window.setTimeout(() => item.remove(), 2900);
+  window.setTimeout(() => item.remove(), 3300);
+}
+
+function launchBurst(count, diamonds = false) {
+  for (let index = 0; index < count; index += 1) {
+    window.setTimeout(() => launchEffect(diamonds && index % 3 === 0 ? 'diamond' : 'heart'), index * 65);
+  }
 }
 
 function drawPose(keypoints) {
@@ -78,7 +86,10 @@ function calculateMotion(points) {
   previousPoints = points;
   if (!visible.length) return 0;
   const travel = visible.reduce((sum,{point,previous}) => sum + Math.hypot(point.x-previous.x,point.y-previous.y),0) / visible.length;
-  return Math.min(100, travel / Math.max(video.videoWidth,1) * 1300);
+  const xs = visible.map(({point}) => point.x);
+  const ys = visible.map(({point}) => point.y);
+  const bodySize = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys), 80);
+  return Math.min(100, travel / bodySize * 900);
 }
 
 async function analyseFrame(timestamp) {
@@ -93,16 +104,23 @@ async function analyseFrame(timestamp) {
     const displayScore = Math.min(100, smoothedScore * 1.7);
     setScore(displayScore);
     motionOutput.textContent = movement > 35 ? 'CHAOTIC' : movement > 16 ? 'STRONG' : movement > 5 ? 'DETECTED' : 'SUBTLE';
-    if (movement > 5) activeSeconds += elapsed;
+    if (movement > 2.2) movementGrace = .8;
+    else movementGrace = Math.max(0, movementGrace - elapsed);
+    viewport.classList.toggle('is-dancing', movementGrace > 0);
+    if (movementGrace > 0) activeSeconds += elapsed;
     timeOutput.textContent = `${activeSeconds.toFixed(1).padStart(4,'0')}s`;
     effectCooldown -= elapsed;
-    if (displayScore >= 45 && effectCooldown <= 0) {
-      launchEffect(displayScore >= 70 && Math.random() > .45 ? 'diamond' : 'heart');
-      effectCooldown = displayScore >= 70 ? .25 : .5;
+    viewport.classList.toggle('is-hot', displayScore >= 58);
+    if (movementGrace > 0 && effectCooldown <= 0) {
+      const diamond = displayScore >= 55 && Math.random() > .42;
+      launchEffect(diamond ? 'diamond' : 'heart');
+      if (displayScore >= 70) launchEffect(Math.random() > .5 ? 'diamond' : 'heart');
+      effectCooldown = displayScore >= 70 ? .12 : displayScore >= 40 ? .2 : .35;
     }
     if (activeSeconds >= 10 && !finaleStarted) {
       finaleStarted = true; viewport.classList.add('is-finale'); setScore(100);
       statusOutput.textContent = 'DANCE TERMINAL ON FIRE';
+      launchBurst(24, true);
     }
   }
   requestAnimationFrame(analyseFrame);
